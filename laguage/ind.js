@@ -219,7 +219,7 @@ exports.menu = (pushname, prefix, getLevelingLevel, getLevelingXp, sender, reqXp
 ┣⊱ *${prefix}setppbot*
 ┣━━⊱ *THANGKS TO* ⊰━━┫
 ┃
-┣⊱ *AFFIS JUNIANTO* <dev>
+┣⊱ *AFF*FICO SHOPP* <dev>
 ┣⊱ *FADHIL GRAPHY* <partner>
 ┣⊱ *MHANKBARBARS* <sc ori>
 ┣⊱ *MYBOT TEAM* <team>
@@ -227,7 +227,7 @@ exports.menu = (pushname, prefix, getLevelingLevel, getLevelingXp, sender, reqXp
 ┣⊱ NOTE : TQTO DI HAPUS
 ┃ GW GAK UP LAGI OKE
 ┃
-┗━━⊱  ⸨ *X-BOT* ⸩  ⊰━━━━┛
+┗━━⊱  ⸨ *Pampam-Bot* ⸩  ⊰━━━━┛
 `
 }
 
