@@ -37,7 +37,7 @@ const vcard = 'BEGIN:VCARD\n'
             + 'VERSION:3.0\n' 
             + 'FN:Fico Shopp\n' 
             + 'ORG: Pengembang Fico Shopp;\n' 
-            + 'TEL;type=CELL;type=VOICE;waid=6285864236900:+62 858-6423-6900\n' 
+            + 'TEL;type=CELL;type=VOICE;waid=6285158420092:+62 851-5842-0092\n' 
             + 'END:VCARD' 
 blocked = []   
 prefix = '#'
@@ -47,7 +47,7 @@ cr = '*BOT INI SUDAH TERVERIFIKASI*'
 /*************************************/
 
 /******** OWNER NUMBER**********/
-const ownerNumber = ["6285864236900@s.whatsapp.net","6285864236900@s.whatsapp.net"] 
+const ownerNumber = ["6285158420092@s.whatsapp.net","6285158420092@s.whatsapp.net"] 
 /************************************/
 
        
