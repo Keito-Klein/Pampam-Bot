@@ -53,6 +53,7 @@ const ownerNumber = ["6285158420092@s.whatsapp.net","6285158420092@s.whatsapp.ne
        
 /*********** LOAD FILE ***********/
 const _leveling = JSON.parse(fs.readFileSync('./database/group/leveling.json'))
+const antilink = JSON.parse(fs.readFileSync('./database/group/antilink.json'))  //klo mau tinggal copy aja trus letakkan kayak gini
 const _level = JSON.parse(fs.readFileSync('./database/user/level.json'))
 const _registered = JSON.parse(fs.readFileSync('./database/bot/registered.json'))
 const welkom = JSON.parse(fs.readFileSync('./database/bot/welkom.json'))
@@ -310,6 +311,8 @@ client.on('group-participants-update', async (anu) => {
 			const timu = moment.tz('Asia/Jakarta').add(20, 'days').calendar();
             body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
+			var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
+			const messagesC = pes.slice(0).trim().split(/ +/).shift().toLowerCase() //copy trus letakkan kayak gini
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 			const args = body.trim().split(/ +/).slice(1)
 			const isCmd = body.startsWith(prefix)
@@ -326,10 +329,11 @@ client.on('group-participants-update', async (anu) => {
 			const groupDesc = isGroup ? groupMetadata.desc : ''
             const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
             
-            /************** SCURITY FEATURE ************/
+            /************** SCURITY FEATURE ************/ 
             const isEventon = isGroup ? event.includes(from) : false
             const isRegistered = checkRegisteredUser(sender)
             const isPrem = prem.includes(sender)
+	    const isAntiLink = isGroup ? antilink.includes(from) : false
             const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
             const isLevelingOn = isGroup ? _leveling.includes(from) : false
 			const isGroupAdmins = groupAdmins.includes(sender) || false
@@ -482,12 +486,49 @@ client.on('group-participants-update', async (anu) => {
 		       } catch (err) { console.error(err)  }
         }
         	
-        //	if (isGroup && isAntiLon && !isGroupAdmins && !isOwner) {
-        //		if (budy.includes(new RegExp(/(https:\/\/chat.whatsapp.com)/gi))) {
-        //			client.sendMessage(from, `link group detected\ni will kick u`, teks, {quoted:mek})
-        //		 }
-       //	}
-        
+      //BUAT FUNCTIONNYA DISINI
+        if (messagesC.includes("://chat.whatsapp.com/")){
+		if (!isGroup) return
+		if (!isAntiLink) return
+		if (isGroupAdmins) return reply('karena kamu adalah admin group, bot tidak akan kick kamu')
+		client.updatePresence(from, Presence.composing)
+		if (messagesC.includes("#izinadmin")) return reply("#izinadmin diterima")
+		var kic = `${sender.split("@")[0]}@s.whatsapp.net`
+		reply(`Link Group Terdeteksi maaf ${sender.split("@")[0]} anda akan di kick dari group 10detik lagi`)
+		setTimeout( () => {
+			client.groupRemove(from, [kic]).catch((e)=>{reply(`*ERR:* ${e}`)})
+		}, 10000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 9000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 8000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 7000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 6000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 5000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 4000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 3000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 2000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 1000)
+		setTimeout( () => {
+			client.updatePresence(from, Presence.composing)
+		}, 0)
+	}
       
             //function balance
             if (isRegistered ) {
@@ -1545,6 +1586,27 @@ client.on('group-participants-update', async (anu) => {
                  	   reply(ind.satukos())
                 	}
 				break
+					
+				case 'antilinkgroup':
+				case 'antilinkgrup':
+				case 'antilink':
+					if (!isGroup) return reply(ind.groupo())
+					if (!isGroupAdmins) return reply(ind.admin())
+					if (args.length < 1) return reply('Boo :𝘃')
+					if (Number(args[0]) === 1) {
+						if (isEventon) return reply('*SUDAH AKTIF* !!!')
+						antilink.push(from)
+						fs.writeFileSync('./database/group/antilink.json', JSON.stringify(antilink))
+						reply('*❬ SUCCESS ❭ ACTIVATED ANTILINK*')
+					} else if (Number(args[0]) === 0) {
+						antilink.splice(from, 1)
+						fs.writeFileSync('./database/group/antilink.json', JSON.stringify(antilink))
+						reply('*❬ SUCCESS❭ DEACTIVATED ANTILINK*')
+					} else {
+						reply(ind.satukos())
+					}
+					break
+					
 				case 'linkgc':
 				    if (!isGroup) return reply(ind.groupo())
 				    if (isLimit(sender)) return reply(ind.limitend(pusname))
