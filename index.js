@@ -907,6 +907,16 @@ client.on('group-participants-update', async (anu) => {
 					client.sendMessage(from, buff, image, {quoted: mek})
 					await limitAdd(sender)
 					break
+					
+				case 'terbalik':
+					if (!isRegistered) return reply(ind.noregis())
+					if (isLimit(sender)) return reply(ind.limitend(pusname))
+					teks = body.slice(10)
+					result = await fetchJson(`https://videfikri.com/api/hurufterbalik/?query=${teks}`)
+					client.sendMessage(from, result, text, {quoted: mek}
+					await limitAdd(sender)
+					break
+								 
 				case 'map':
 				if (!isRegistered) return reply(ind.noregis())
 				if (isLimit(sender)) return reply(ind.limitend(pusname))
