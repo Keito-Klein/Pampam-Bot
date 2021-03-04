@@ -562,7 +562,28 @@ client.on('group-participants-update', async (anu) => {
 			
 			switch(command) {
 				//itsmei 
-				case 'play':
+				
+
+	case 'attp':
+if (isRegisstered) return reply(ind.noregis())
+if (isLimit(sender)) return reply(ind.limitend(pusname))
+tek = body.slice(6)
+anu = await getBuffer(`https://xteam.xyz/attp?file&text=${tek}`, {method: 'get'})
+if (anu.error) return reply(anu.error)
+client.sendMessage(from, anu, sticker, {quoted: mek})
+break
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
 				
 				break
 				//qr 
