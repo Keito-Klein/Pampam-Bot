@@ -584,8 +584,8 @@ break
 	
 
 	
-				
-				break
+			
+		
 				//qr 
 				case 'qrcode':
 				if (!isRegistered) return reply(ind.noregis())
